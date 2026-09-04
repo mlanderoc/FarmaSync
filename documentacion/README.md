@@ -15,4 +15,4 @@ La primera entrega aborda el análisis del problema y el diseño inicial de la b
 
 | Archivo | Descripción |
 |---|---|
-| `planteamiento_problema.pdf` | Documento de trabajo con el planteamiento del problema y requisitos iniciales. |
+| `planteamiento_problema.pdf` | Documento del proyecto con el planteamiento del problema y requisitos iniciales. |
