@@ -14,6 +14,7 @@ El sistema permitirá registrar y consultar información relacionada con:
 - Lotes y fechas de vencimiento.
 - Proveedores.
 - Ventas.
+- Empleados y sus roles
 - Clientes.
 - Alertas de vencimiento.
 - Pérdidas por productos vencidos.
