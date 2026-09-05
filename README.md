@@ -1,5 +1,14 @@
 # FarmaSync
 
+## Integrantes del proyecto
+
+- Merlin Yelenis Landero Cuello
+- Carlos Raúl Gómez Galvis
+- Melany Piñeres Castro
+- Juan Román Pedroza Hernández 
+- Franco Cuello Villazón 
+- Isaac Daniel Bonilla Guerra
+
 ## Sistema de Alertas Tempranas y Gestión de Inventario FEFO (first expired, first out) para Productos Farmacéuticos.
 
 FarmaSync es un sistema de gestión de inventario orientado a una droguería, cuyo objetivo es mejorar el control de productos farmacéuticos mediante el seguimiento de lotes, fechas de vencimiento y rotación de inventario bajo el principio FEFO (First Expired, First Out).
