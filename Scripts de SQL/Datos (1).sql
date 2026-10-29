@@ -1,3 +1,14 @@
+-- Ejecutar DESPUÉS de Tablas.sql y Restricciones.sql, en este orden
+-- (primero las tablas "padre", luego las que las referencian).
+--
+-- Los tres casos que pide la rúbrica de evaluación:
+--   A) Filas que se relacionan con VARIAS:
+--        cliente 6 (2 ventas), lote 1 (3 ventas), pedido 1 (3 productos)
+--   B) Filas que NO se relacionan con NINGUNA:
+--        cliente 10 (sin ventas), proveedor 900567890-5 (sin pedidos),
+--        producto MED-C05, INS-04 e INS-05 (sin lotes), receta 5 (sin uso)
+--   C) Datos que el servidor RECHAZA: ver la sección final (comentada).
+
 
 INSERT INTO PERSONA (id_persona, nombre, correo, telefono) VALUES
   (1,  'Laura Gómez',     'laura.gomez@drogueria.com',  '3001112233'),
@@ -143,6 +154,43 @@ INSERT INTO PERDIDA (id_perdida, valor_perdido, cantidad_perdida, accion, id_lot
   (3, 21000.00, 1, 'Destrucción por rotura',         6, 5),
   (4,  1800.00, 2, 'Destrucción por empaque dañado', 7, 5),
   (5, 48000.00, 2, 'Devolución al proveedor',        8, 4);
+
+-- Personas, empleados y clientes 
+-- CASO C: sentencias que el servidor DEBE rechazar.
+-- Están comentadas para que este script corra completo sin errores.
+-- Para la demostración, ejecutar de una en una (sin los "--").
+
+
+-- 1) CHECK: precio no positivo
+-- INSERT INTO producto (referencia, nombre_comercial, precio, presentacion)
+-- VALUES ('TST-01', 'Producto de prueba', -100, 'Unidad');
+--   ERROR: new row for relation "producto" violates check constraint "producto_precio_positivo"
+
+-- 2) UNIQUE: nombre comercial repetido
+-- INSERT INTO producto (referencia, nombre_comercial, precio, presentacion)
+-- VALUES ('TST-02', 'Ibuprofeno 400 mg', 5000, 'Unidad');
+--   ERROR: duplicate key value violates unique constraint "producto_nombre_unico"
+
+-- 3) FOREIGN KEY: cliente que no existe
+-- INSERT INTO venta (id, valor_total, id_empleado, id_cliente)
+-- VALUES (99, 1000, 3, 999);
+--   ERROR: insert or update on table "venta" violates foreign key constraint "venta_id_cliente_fkey"
+
+-- 4) ON DELETE RESTRICT: borrar una receta que ya se usó en una venta
+-- DELETE FROM receta_medica WHERE id = 1;
+--   ERROR: update or delete on table "receta_medica" violates foreign key
+--   constraint "detalle_venta_id_receta_fkey" on table "detalle_venta"
+
+-- 5) CHECK: cantidad vendida en cero
+-- INSERT INTO detalle_venta (id_venta, id_lote, cantidad, precio_unitario, id_receta)
+-- VALUES (5, 2, 0, 9800, NULL);
+--   ERROR: new row for relation "detalle_venta" violates check constraint "detalle_venta_cantidad_positiva"
+
+-- Demostración de ON DELETE CASCADE (dentro de una transacción para no perder datos | Esta parte es ayuda de la IA):
+-- BEGIN;
+-- DELETE FROM venta WHERE id = 1;
+-- SELECT * FROM detalle_venta WHERE id_venta = 1;   -- 0 filas: se borraron con la venta
+-- ROLLBACK;
 
 
 
