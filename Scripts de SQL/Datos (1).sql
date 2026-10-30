@@ -155,6 +155,33 @@ INSERT INTO PERDIDA (id_perdida, valor_perdido, cantidad_perdida, accion, id_lot
   (4,  1800.00, 2, 'Destrucción por empaque dañado', 7, 5),
   (5, 48000.00, 2, 'Devolución al proveedor',        8, 4);
 
+--casos de la rubrica (registro que se relaciona con varios, registros que no se relacionan con ninguno)
+
+--consulta juan castro
+SELECT p.nombre AS cliente, v.id_venta, v.valor_total
+FROM PERSONA p
+JOIN CLIENTE c ON p.id_persona = c.id_persona
+JOIN VENTA v ON c.id_persona = v.id_cliente
+WHERE p.nombre = 'Juan Castro';
+
+--productos del pedido 1
+SELECT dp.id_pedido, dp.referencia_producto, pr.nombre_comercial
+FROM DETALLE_PEDIDO dp
+JOIN PRODUCTO pr ON dp.referencia_producto = pr.referencia
+WHERE dp.id_pedido = 1;
+
+-- consulta sin relacion
+SELECT p.id_persona, p.nombre
+FROM PERSONA p
+JOIN CLIENTE c ON p.id_persona = c.id_persona
+WHERE c.id_persona NOT IN (SELECT DISTINCT id_cliente FROM VENTA);
+
+-- provedor -(lote,pedido)
+SELECT nit, nombre
+FROM PROVEEDOR
+WHERE nit NOT IN (SELECT DISTINCT nit_proveedor FROM PEDIDO WHERE nit_proveedor IS NOT NULL)
+  AND nit NOT IN (SELECT DISTINCT nit_proveedor FROM LOTE WHERE nit_proveedor IS NOT NULL);
+
 -- Personas, empleados y clientes 
 -- CASO C: sentencias que el servidor DEBE rechazar.
 -- Están comentadas para que este script corra completo sin errores.
