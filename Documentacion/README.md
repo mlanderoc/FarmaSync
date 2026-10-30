@@ -16,3 +16,21 @@ La primera entrega aborda el análisis del problema y el diseño inicial de la b
 | Archivo | Descripción |
 |---|---|
 | `planteamiento_problema.pdf` | Documento del proyecto con el planteamiento del problema y requisitos iniciales. |
+
+## Entrega 2 — Implementación
+
+La segunda entrega convierte el diseño en una base de datos real que Funciona.
+
+### Contenido
+
+- **Correcciones de la Entrega 1:** Las observaciones recibidas, incorporadas al diagrama y al esquema.
+
+- **DDL como migraciones:** El esquema completo en scripts.
+
+- **Datos semilla:** Un script de datos ficticios coherentes.
+    
+## Archivos
+
+| Archivo | Descripción |
+|---|---|
+| `FarmaSync.pdf` | Documento del proyecto con el planteamiento del problema, requisitos iniciales y políticas de borrado. |
